@@ -30,7 +30,7 @@ public class Main{
                 array[row][col] = ' ';
             return;
         }
-
+ 
         for(int i = row; i<row+N; i += N/3){
             for(int j = col; j<col+N; j += N/3){
                 if(++count != 5 && isStar)
