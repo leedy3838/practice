@@ -92,7 +92,7 @@ public class Main{
 
         max = Math.max(max, cnt);
     }
-}
+} 
 
 //좌표를 저장하기 쉽게 하지 위해서 새로운 클래스 생성
 class rowCol{
