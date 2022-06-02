@@ -32,4 +32,4 @@ public class Main {
             return (((temp * temp) % c) * a) % c;
 
     }
-}
+} 
