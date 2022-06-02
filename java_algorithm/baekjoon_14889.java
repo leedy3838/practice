@@ -27,7 +27,7 @@ public class Main{
         find(0, 0);
 
         System.out.println(minNum);
-    }
+    } 
 
     static void find(int depth, int count){
         if(count == N/2){
