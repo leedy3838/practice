@@ -60,5 +60,5 @@ public class Main{
             dfs(nextSum, cnt+1, calc);
             calc[i]++;
         }
-    }
+    } 
 }
