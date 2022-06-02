@@ -55,7 +55,7 @@ public class Main{
 
             if (dr < 0 || dr >= intArr.length || dc < 0 || dc >= intArr[0].length)
                 continue;
-
+ 
             if (!gone[dr][dc]) {
                 gone[row][col] = true;
                 ll.offer(new RowCol(row, col));
