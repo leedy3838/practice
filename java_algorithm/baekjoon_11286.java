@@ -31,7 +31,7 @@ public class Main{
 
         while(N-->0){
             int num = Integer.parseInt(br.readLine());
-
+ 
             if(num != 0){
                 pq.offer(num);
             }
