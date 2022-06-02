@@ -10,7 +10,7 @@ public class Main{
 
         for(int i = 1; i<=n; i++)
             intArr[i-1] = new int[i];
-
+ 
         for(int i = 0; i<n; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
 
