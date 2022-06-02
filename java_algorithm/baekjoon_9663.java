@@ -20,7 +20,7 @@ public class Main{
         if(depth == N){
             cnt++;
             return;
-        }
+        } 
 
         for(int i = 0; i<N; i++){
             queen[depth] = i;
