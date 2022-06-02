@@ -15,7 +15,7 @@ public class Main{
 
             for(int i = 0; i<2; i++){
                 StringTokenizer st = new StringTokenizer(br.readLine());
-
+ 
                 for(int j = 1; j<=N; j++)
                     sticker[i][j] = Integer.parseInt(st.nextToken());
             }
