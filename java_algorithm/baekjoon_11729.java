@@ -27,4 +27,4 @@ public class Main{
         sb.append(from+" "+to).append("\n");
         hanoi(use, from, to, N-1);
     }
-}
+} 
