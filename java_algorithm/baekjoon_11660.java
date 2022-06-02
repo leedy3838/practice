@@ -29,7 +29,7 @@ public class Main{
                 else
                     sumArr[i][j] = sumArr[i][j-1] + sumArr[i-1][j] - sumArr[i-1][j-1] + intArr[i][j];
             }
-        }
+        } 
 
         for(int i = 0; i<num; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
