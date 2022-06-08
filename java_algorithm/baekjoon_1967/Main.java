@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static ArrayList<Node>[] map;
+    static List<Node>[] map;
     static boolean[] visited;
     static int max = Integer.MIN_VALUE;
     static int n;
@@ -14,7 +14,7 @@ public class Main {
 
         n = Integer.parseInt(br.readLine());
         visited = new boolean[n+1];
-        map = new ArrayList[n+1];
+        map = new List[n+1];
 
         for(int i = 1; i<=n; i++)
             map[i] = new ArrayList<>();
