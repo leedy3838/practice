@@ -43,8 +43,10 @@ public class Main {
                 if(visited[i][j])
                     continue;
 
+                //연결되어 있는지 확인
                 Queue<Node> check = new LinkedList<>();
-                List<Node> change = new LinkedList<>();
+                //연결된 부분들의 map을 같은 수로 맞추어주기 위해서 생성
+                Queue<Node> change = new LinkedList<>();
 
                 check.offer(new Node(i, j));
                 int sum = 0;
@@ -52,7 +54,7 @@ public class Main {
 
                 while(!check.isEmpty()) {
                     Node a = check.poll();
-                    change.add(a);
+                    change.offer(a);
                     visited[a.row][a.col] = true;
 
                     count++;
@@ -76,8 +78,9 @@ public class Main {
                         }
                     }
                 }
+                //저장된 나라의 인구들을 초기화
                 while(!change.isEmpty()){
-                    Node a = change.remove(0);
+                    Node a = change.poll();
                     map[a.row][a.col] = sum/count;
                 }
             }
