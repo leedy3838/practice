@@ -31,6 +31,7 @@ public class Main {
         }
 
         int timeSum = 0;
+        //부모가 옮기지 않아도 될 때 계속 반복
         while(sharkGo())
             timeSum += time;
 
@@ -39,6 +40,7 @@ public class Main {
 
     static boolean sharkGo(){
         time = 0;
+        //먹은 물고기의 수가 몸의 크기와 같아지면 몸의 크기 증가
         if(eatCount == sharkSize){
             eatCount = 0;
             sharkSize++;
@@ -56,6 +58,7 @@ public class Main {
 
         while(!q.isEmpty()){
             Node a = q.poll();
+            //최소 시간으로 물고기를 먹을 수 있는 시간을 넘으면 종료
             if(a.time >= minTime)
                 break;
 
