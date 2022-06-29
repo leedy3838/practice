@@ -109,6 +109,6 @@ public class Main {
         int parent2 = find(idx2);
 
         if(parent1 != parent2)
-            parent[idx2] = parent[idx1];
+            parent[parent2] = parent1;
     }
 }
