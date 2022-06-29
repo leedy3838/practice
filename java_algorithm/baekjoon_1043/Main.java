@@ -1,104 +1,114 @@
 package baekjoon_1043;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashSet;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-
     static int[] parent;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] inputs = br.readLine().split(" ");
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(inputs[0]);
-        int m = Integer.parseInt(inputs[1]);
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        boolean[] people_know = new boolean[n+1]; // 알고있으면 T, 아니면 F
+        st = new StringTokenizer(br.readLine());
+        int knowNum = Integer.parseInt(st.nextToken());
+        boolean[] knowPeople;
 
-        HashSet<Integer>[] parties = new HashSet[m+1];
-        for (int i = 1; i <= m; i++) {
-            parties[i] = new HashSet<>();
+        //진실을 아는 사람이 없다면 파티의 수를 출력하고 바로 종료
+        if(knowNum == 0){
+            System.out.println(M);
+            return;
         }
-
-        inputs = br.readLine().split(" ");
-        int know_num = Integer.parseInt(inputs[0]);
-
-        for (int i = 1; i <= know_num; i++) { // 진실을 아는사람 T
-            int tmp = Integer.parseInt(inputs[i]);
-            people_know[tmp] = true;
-        }
-
-        parent = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
+        //자신과 연결된 루트 노드를 설정
+        parent = new int[N+1];
+        for(int i = 1; i<=N; i++)
             parent[i] = i;
+
+        //진실을 아는 사람들의 배열을 생성
+        knowPeople = new boolean[N+1];
+        for(int i = 0; i<knowNum; i++) {
+            int num = Integer.parseInt(st.nextToken());
+
+            knowPeople[num] = true;
         }
 
-        for (int p = 1; p <= m; p++) { // party number
+        //파티마다 참여한 사람들의 목록을 생성
+        List<List<Integer>> partyList = new ArrayList<>();
+        for(int i = 0; i<M; i++)
+            partyList.add(new ArrayList<>());
 
-            inputs = br.readLine().split(" ");
-            int party_num = Integer.parseInt(inputs[0]); // 파티에 오는 사람 수
+        for(int i = 0; i<M; i++){
+            st = new StringTokenizer(br.readLine());
 
-            if(party_num<=1) {
-                parties[p].add(Integer.parseInt(inputs[1]));
-                continue;
-            }
+            int num = Integer.parseInt(st.nextToken());
+            for(int j = 0; j<num; j++) {
+                partyList.get(i).add(Integer.parseInt(st.nextToken()));
 
-            for (int j = 1; j < party_num; j++) { // 연관 관계 이어줌
-                int a = Integer.parseInt(inputs[j]);
-                int b = Integer.parseInt(inputs[j+1]);
-                if (find(a) != find(b)) {
-                    union(a,b);
+                //같이 파티에 참가한 사람을 확인
+                if(j != 0){
+                    int nowIdx = partyList.get(i).get(j);
+                    int exIdx = partyList.get(i).get(j-1);
+
+                    union(exIdx, nowIdx);
                 }
-
-                parties[p].add(a); // 파티에 참여하는 사람 저장
-                parties[p].add(b);
             }
         }
 
-        // 진실을 아는 사람과 연관 관계 있음 => people_know[i] T로 변경
-        boolean[] visited = new boolean[n + 1];
-        for (int i = 1; i <= n; i++) {
-            if(people_know[i] && !visited[i]){
+        boolean[] visited = new boolean[N+1];
+        for(int i = 1; i<=N; i++){
+            if(knowPeople[i] && !visited[i]) {
                 int root = find(i);
-                for (int j = 1; j <= n; j++){
-                    if (find(j)==root) {
-                        people_know[j] = true;
+
+                for (int j = 1; j <= N; j++) {
+                    if(find(j) == root){
+                        knowPeople[j] = true;
                         visited[j] = true;
                     }
                 }
             }
         }
 
-        // 모든 파티 참석자가 F여야 과장된 얘기를 할 수 있음
-        int result = 0;
-        for (int i = 1; i <= m; i++) { // party
-            boolean flag = false;
-            for (int person : parties[i]) { // 참석자
-                if(people_know[person]){
-                    flag = true;
-                    break;
+        //파티에 진실을 아는 사람이 있는지 확인
+        boolean[] goParty = new boolean[M];
+        for(int i = 0; i<M; i++)
+            goParty[i] = true;
+
+        for(int i = 0; i<M; i++){
+            for(int j = 1; j<=N; j++){
+                if(knowPeople[j]){
+                    if(partyList.get(i).contains(j))
+                        goParty[i] = false;
                 }
             }
-            if(!flag) result++;
         }
 
-        System.out.println(result);
+        int sum = 0;
+        for(int i = 0; i<M; i++)
+            if(goParty[i])
+                sum++;
+
+        System.out.println(sum);
     }
 
-    public static int find(int idx) {
-        if(parent[idx]==idx){
+    //자신과 연결된 노드의 루트 노드를 탐색
+    static int find(int idx){
+        if(parent[idx] == idx)
             return idx;
+        else {
+            parent[idx] = find(parent[idx]);
+            return parent[idx];
         }
-        parent[idx] = find(parent[idx]);
-        return parent[idx];
     }
 
-    public static void union(int a, int b) {
-        int parent_b = find(b);
-        parent[parent_b] = a; // b의 parent를 a로 변경
-    }
+    //연결된 노드가 다르다면 연결해줌
+    static void union(int idx1, int idx2){
+        int parent1 = find(idx1);
+        int parent2 = find(idx2);
 
+        if(parent1 != parent2)
+            parent[idx2] = parent[idx1];
+    }
 }
