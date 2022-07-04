@@ -67,6 +67,7 @@ public class Main {
         return year;
     }
 
+    //이어져 있는 빙산의 범위를 확인
     static void icebergFind(int row, int col){
         Queue<Node> q = new LinkedList<>();
         q.offer(new Node(row, col, 0));
@@ -92,6 +93,7 @@ public class Main {
         }
     }
 
+    //얼음 녹이기
     static void icebergMelt(){
         Queue<Node> q = new LinkedList<>();
 
