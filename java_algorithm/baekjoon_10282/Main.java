@@ -48,10 +48,6 @@ public class Main {
 
                 for(int i = 0; i<l.get(a.vertex).size(); i++){
                     Node nextV = l.get(a.vertex).get(i);
-
-                    if(visited[nextV.vertex])
-                        continue;
-
                     q.offer(new Node(nextV.vertex, a.time+nextV.time));
                 }
             }
