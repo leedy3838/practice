@@ -42,6 +42,8 @@ public class Main {
         for(int i = 1; i<=N; i++)
             dist[i] = Integer.MAX_VALUE;
 
+        //각각의 노드에는 목표 정점(to)과 그 정점으로 가기 직전의 정점(from),
+        //시작 정점에서 목표 정점까지의 거리(val)을 저장
         Queue<Node> q = new PriorityQueue<>();
         q.offer(new Node(1, 1, 0));
         visited[1] = true;
