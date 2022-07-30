@@ -18,9 +18,9 @@ public class Main {
             M = Integer.parseInt(st.nextToken());
             P = Integer.parseInt(st.nextToken());
 
-            List<List<Integer>> l = new ArrayList<>();
             int[][] count = new int[M+1][M+1];
             int [] parentNum = new int[M+1];
+            List<List<Integer>> l = new ArrayList<>();
             for(int i =0; i<=M; i++)
                 l.add(new ArrayList<>());
 
@@ -35,17 +35,17 @@ public class Main {
             }
             Queue<Integer> q = new LinkedList<>();
 
-            for(int i=1; i<=M; i++){
-                if(parentNum[i]!=0)  continue;
-
-                q.add(i);
-                count[i][1]=1;
-            }
+            for(int i=1; i<=M; i++)
+                if(parentNum[i]==0) {
+                    q.add(i);
+                    count[i][1] = 1;
+                }
 
             int result =0;
             while(!q.isEmpty()){
                 int nodeIndex = q.poll();
                 int ci = findMax(count[nodeIndex], M);
+
                 if(count[nodeIndex][ci]>=2){
                     ci++;
                     count[nodeIndex][ci]=1;   // 순서가 i인 강이 2개 이상일 때 i+1을 순서로
@@ -65,7 +65,7 @@ public class Main {
     }
     static int findMax(int[] arr, int m){
         int max = 0;
-        for(int i = m-1; i>=0; i--){
+        for(int i = m; i>0; i--){
             if(arr[i]>0){
                 max=i;
                 break;
