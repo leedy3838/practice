@@ -29,24 +29,32 @@ public class Main {
                 target[i][j] = Integer.parseInt(input[j]);
         }
 
-        boolean canDo = true;
-        for(int i = 0; i<N; i++){
-            for(int j = 0; j<M; j++){
+        for(int i = 0; i<N-2; i++){
+            for(int j = 0; j<M-2; j++){
                 if(map[i][j] != target[i][j]){
-                    canDo = change(i, j);
-
-                    if(!canDo)
-                        break;
+                    change(i, j);
                 }
             }
         }
-        if(!canDo)
-            System.out.println(-1);
-        else
+
+        boolean okay = true;
+        for(int i = 0; i<N; i++){
+            for(int j = 0; j<M; j++)
+                if(map[i][j] != target[i][j]) {
+                    okay = false;
+                    break;
+                }
+            if(!okay)
+                break;
+        }
+
+        if(okay)
             System.out.println(cnt);
+        else
+            System.out.println(-1);
     }
 
-    static boolean change(int row, int col){
+    static void change(int row, int col){
         int[] dR = {0, 1, 2, 0, 1, 2, 0, 1, 2};
         int[] dC = {0, 0, 0, 1, 1, 1, 2, 2, 2};
 
@@ -57,7 +65,7 @@ public class Main {
             int dc = col + dC[i];
 
             if(dr>=N||dc>=M)
-                return false;
+                return;
 
             boolean isZero = map[dr][dc] == 0;
             if(isZero)
@@ -65,7 +73,5 @@ public class Main {
             else
                 map[dr][dc] = 0;
         }
-
-        return true;
     }
 }
