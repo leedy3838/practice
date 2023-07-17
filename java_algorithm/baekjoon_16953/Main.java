@@ -3,53 +3,45 @@ package baekjoon_16953;
 import java.util.*;
 import java.io.*;
 
-public class Main{ 
-    static int B;
-    static boolean get;
-
+public class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int A = Integer.parseInt(st.nextToken());
-        B = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
 
-        int cnt = bfs(A);
-
-        if(get)
-            System.out.println(cnt);
-        else
-            System.out.println(-1);
+        System.out.println(bfs(A, B));
     }
 
-    static int bfs(int start){
-        Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(start, 0));
-        Node a = q.peek();
+    static int bfs(int start, int target){
+        Queue<Node> q = new PriorityQueue<>();
+        q.offer(new Node(start, 1));
 
         while(!q.isEmpty()){
-            a = q.poll();
+            Node v = q.poll();
 
-            if(a.a == B){
-                get = true;
-                break;
-            }
+            if(v.val == target)
+                return v.cnt;
 
-            if((long)a.a*2<=B)
-                q.offer(new Node(a.a*2, a.cnt+1));
-            if((long)a.a*10+1<=B)
-                q.offer(new Node(a.a*10+1, a.cnt+1));
-
+            if((long)v.val*2<=target)
+                q.offer(new Node(v.val*2, v.cnt+1));
+            if((long)v.val*10+1<=target)
+                q.offer(new Node(v.val*10+1, v.cnt+1));
         }
 
-        return a.cnt+1;
+        return -1;
     }
 }
-class Node{
-    int a, cnt;
+class Node implements Comparable<Node>{
+    int val, cnt;
 
-    Node(int a, int cnt){
-        this.a = a;
+    Node(int val, int cnt){
+        this.val = val;
         this.cnt = cnt;
+    }
+
+    public int compareTo(Node a){
+        return a.val - this.val;
     }
 }
