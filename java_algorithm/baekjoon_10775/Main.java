@@ -1,7 +1,6 @@
 package baekjoon_10775;
 
 import java.io.*;
-import java.util.*;
 
 public class Main {
 
