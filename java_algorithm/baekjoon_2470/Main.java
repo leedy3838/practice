@@ -41,37 +41,19 @@ public class Main {
         int right = list.size() - 1;
         int minVal = list.get(left);
         int maxVal = list.get(right);
-        int minSum = minVal + maxVal;
-        int sum = minSum;
+        int gap = Math.abs(minVal + maxVal);
 
         while(left < right){
-            if(sum < 0){
-                left++;
-                sum = list.get(left) + list.get(right);
+            int sum = list.get(left) + list.get(right);
 
-                if(left == right)
-                    break;
-                if(Math.abs(minSum) > Math.abs(sum)){
-                    minVal = list.get(left);
-                    maxVal = list.get(right);
-                    minSum = list.get(left) + list.get(right);
-                }
+            if(gap > Math.abs(sum)){
+                minVal = list.get(left);
+                maxVal = list.get(right);
+                gap = Math.abs(sum);
             }
-            else if(sum > 0){
-                right--;
-                sum = list.get(left) + list.get(right);
 
-                if(left == right)
-                    break;
-                if(Math.abs(minSum) > Math.abs(sum)){
-                    minVal = list.get(left);
-                    maxVal = list.get(right);
-                    minSum = list.get(left) + list.get(right);
-                }
-            }
-            else{
-                break;
-            }
+            if(sum > 0) right--;
+            else left++;
         }
 
         firstVal = minVal;
