@@ -57,9 +57,7 @@ public class Main {
             return 1;
         }
 
-        if(dp[row][col] == -1){
-            dp[row][col] = 0;
-        }
+        dp[row][col] = 0;
 
         for(int i = 0; i < 4; i++){
             int dr = row + dR[i];
