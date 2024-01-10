@@ -8,8 +8,8 @@ public class Main {
     private static int R, C;
     private static int startR, startC;
     private static char[][] map;
-    private static int[] dR = {0, 0, 1, -1};
-    private static int[] dC = {1, -1, 0, 0};
+    private static final int[] dR = {0, 0, 1, -1};
+    private static final int[] dC = {1, -1, 0, 0};
 
     public static void main(String[] args) {
         firstSetting();
