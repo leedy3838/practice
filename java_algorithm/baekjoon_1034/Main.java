@@ -24,8 +24,7 @@ public class Main {
 
             for (int i = 0; i < N; i++) {
                 map[i] = Arrays.stream(br.readLine().split("\\s*"))
-                        .mapToInt(Integer::parseInt)
-                        .mapToObj(num -> num == 1)
+                        .map(str -> str.equals("1"))
                         .toArray(Boolean[]::new);
             }
 
