@@ -41,83 +41,10 @@ public class Main {
                 break;
             }
 
-            int nextMaxR = 0;
-            int nextMaxC = 0;
-
             if (maxR >= maxC) {
-                for (int i = 1; i <= maxR; i++) {   //행에 대한 연산
-                    int[] numCount = new int[101];          //index - num, value - count
-                    Queue<Node> pq = new PriorityQueue<>(); //numCount의 값을 넣을 용도 - count가 적은 게 먼저 나옴
-
-                    int j = 1;
-                    while (j <= maxC) {
-                        numCount[map[i][j]]++;
-                        j++;
-                    }
-
-                    for (int num = 1; num <= 100; num++) {
-                        if (numCount[num] != 0) {
-                            pq.add(new Node(num, numCount[num]));
-                        }
-                    }
-
-                    int idx = 1;
-                    while (!pq.isEmpty()) {
-                        Node node = pq.poll();
-
-                        if (idx > 100) {
-                            break;
-                        }
-
-                        map[i][idx++] = node.num;
-                        map[i][idx++] = node.count;
-                    }
-
-                    nextMaxC = Math.max(nextMaxC, idx - 1);
-
-                    while (idx <= 100) {
-                        map[i][idx++] = 0;        //map 초기화
-                    }
-                }
-
-                maxC = nextMaxC;
+                maxC = operationR(maxR, maxC);
             } else {
-                for (int i = 1; i <= maxC; i++) {   //열에 대한 연산
-                    int[] numCount = new int[101];          //index - num, value - count
-                    Queue<Node> pq = new PriorityQueue<>(); //numCount의 값을 넣을 용도 - count가 적은 게 먼저 나옴
-
-                    int j = 1;
-                    while (j <= maxR) {
-                        numCount[map[j][i]]++;
-                        j++;
-                    }
-
-                    for (int num = 1; num <= 100; num++) {
-                        if (numCount[num] != 0) {
-                            pq.add(new Node(num, numCount[num]));
-                        }
-                    }
-
-                    int idx = 1;
-                    while (!pq.isEmpty()) {
-                        Node node = pq.poll();
-
-                        if (idx > 100) {
-                            break;
-                        }
-
-                        map[idx++][i] = node.num;
-                        map[idx++][i] = node.count;
-                    }
-
-                    nextMaxR = Math.max(nextMaxR, idx - 1);
-
-                    while (idx <= 100) {
-                        map[idx++][i] = 0;        //map 초기화
-                    }
-                }
-
-                maxR = nextMaxR;
+                maxR = operationC(maxC, maxR);
             }
         }
         if (time > 100) {
@@ -125,6 +52,90 @@ public class Main {
         } else {
             System.out.println(time);
         }
+    }
+
+    private static int operationR(int maxR, int maxC) {
+        int nextMaxC = 0;
+
+        for (int i = 1; i <= maxR; i++) {   //행에 대한 연산
+            int[] numCount = new int[101];          //index - num, value - count
+            Queue<Node> pq = new PriorityQueue<>(); //numCount의 값을 넣을 용도 - count가 적은 게 먼저 나옴
+
+            int j = 1;
+            while (j <= maxC) {
+                numCount[map[i][j]]++;
+                j++;
+            }
+
+            for (int num = 1; num <= 100; num++) {
+                if (numCount[num] != 0) {
+                    pq.add(new Node(num, numCount[num]));
+                }
+            }
+
+            int idx = 1;
+            while (!pq.isEmpty()) {
+                Node node = pq.poll();
+
+                if (idx > 100) {
+                    break;
+                }
+
+                map[i][idx++] = node.num;
+                map[i][idx++] = node.count;
+            }
+
+            nextMaxC = Math.max(nextMaxC, idx - 1);
+
+            while (idx <= 100) {
+                map[i][idx++] = 0;        //map 초기화
+            }
+        }
+
+        maxC = nextMaxC;
+        return maxC;
+    }
+
+    private static int operationC(int maxC, int maxR) {
+        int nextMaxR = 0;
+
+        for (int i = 1; i <= maxC; i++) {   //열에 대한 연산
+            int[] numCount = new int[101];          //index - num, value - count
+            Queue<Node> pq = new PriorityQueue<>(); //numCount의 값을 넣을 용도 - count가 적은 게 먼저 나옴
+
+            int j = 1;
+            while (j <= maxR) {
+                numCount[map[j][i]]++;
+                j++;
+            }
+
+            for (int num = 1; num <= 100; num++) {
+                if (numCount[num] != 0) {
+                    pq.add(new Node(num, numCount[num]));
+                }
+            }
+
+            int idx = 1;
+            while (!pq.isEmpty()) {
+                Node node = pq.poll();
+
+                if (idx > 100) {
+                    break;
+                }
+
+                map[idx++][i] = node.num;
+                map[idx++][i] = node.count;
+            }
+
+            nextMaxR = Math.max(nextMaxR, idx - 1);
+
+            while (idx <= 100) {
+                map[idx++][i] = 0;        //map 초기화
+            }
+        }
+
+        maxR = nextMaxR;
+        return maxR;
     }
 
     private static class Node implements Comparable<Node> {
