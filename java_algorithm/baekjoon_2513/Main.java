@@ -54,10 +54,6 @@ public class Main {
                 distSum += nowMaxDist * 2;
                 nowMaxDist = 0;
                 nowBusRide = 0;
-            } else if (nowBusRide == K) {
-                distSum += nowMaxDist * 2;
-                nowMaxDist = 0;
-                nowBusRide = 0;
             }
         }
         distSum += nowMaxDist * 2;
@@ -74,10 +70,6 @@ public class Main {
                 //다시 버스를 타야 하는 사람들
                 afterSchool.add(new Node(node.dist, nowBusRide - K));
 
-                distSum += nowMaxDist * 2;
-                nowMaxDist = 0;
-                nowBusRide = 0;
-            } else if (nowBusRide == K) {
                 distSum += nowMaxDist * 2;
                 nowMaxDist = 0;
                 nowBusRide = 0;
