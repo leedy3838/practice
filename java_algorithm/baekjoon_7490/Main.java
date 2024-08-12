@@ -52,7 +52,7 @@ public class Main {
         StringTokenizer st = new StringTokenizer(str, "+|-", true);
         int sum = Integer.parseInt(st.nextToken());
 
-        while (st.hasMoreElements()) {
+        while (st.hasMoreTokens()) {
             String op = st.nextToken();
 
             if (op.equals("+")) {
