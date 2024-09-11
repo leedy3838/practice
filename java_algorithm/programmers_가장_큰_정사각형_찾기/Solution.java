@@ -9,8 +9,6 @@ class Solution
         int R = board.length;
         int C = board[0].length;
         
-        int maxSize = Math.min(R, C) - 1;
-        
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 if (board[i][j] == 1) {
